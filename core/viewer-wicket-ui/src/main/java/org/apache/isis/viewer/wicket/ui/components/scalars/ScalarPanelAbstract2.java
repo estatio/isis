@@ -106,6 +106,12 @@ public abstract class ScalarPanelAbstract2 extends PanelAbstract<ScalarModel> im
     private static final String ID_ASSOCIATED_ACTION_LINKS_BELOW = "associatedActionLinksBelow";
     private static final String ID_ASSOCIATED_ACTION_LINKS_RIGHT = "associatedActionLinksRight";
 
+    /**
+     * @param pendingArguments
+     * @return - true if changed as a result of these pending arguments.
+     */
+    public abstract boolean updateIfNecessary(final ObjectAdapter[] pendingArguments);
+
     public static class InlinePromptConfig {
         private final boolean supported;
         private final Component componentToHideIfAny;

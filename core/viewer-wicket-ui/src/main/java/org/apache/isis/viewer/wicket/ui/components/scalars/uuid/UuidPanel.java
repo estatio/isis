@@ -23,6 +23,7 @@ import java.util.UUID;
 
 import org.apache.wicket.markup.html.form.AbstractTextComponent;
 
+import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.viewer.wicket.model.models.ScalarModel;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelTextFieldAbstract;
 import org.apache.isis.viewer.wicket.ui.components.scalars.TextFieldValueModel;
@@ -35,6 +36,13 @@ public class UuidPanel extends ScalarPanelTextFieldAbstract<UUID> {
     private static final long serialVersionUID = 1L;
 
     private static final UuidConverter converter = new UuidConverter();
+
+    @Override
+    public boolean updateIfNecessary(
+            final ObjectAdapter[] pendingArguments) {
+        // no-op
+        return true;
+    }
 
     public UuidPanel(
             final String id,

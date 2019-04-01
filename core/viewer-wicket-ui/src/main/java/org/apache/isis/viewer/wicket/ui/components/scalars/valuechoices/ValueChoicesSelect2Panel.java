@@ -43,6 +43,10 @@ public class ValueChoicesSelect2Panel extends ScalarPanelSelect2Abstract impleme
 
     private static final long serialVersionUID = 1L;
 
+    @Override public boolean updateIfNecessary(
+            final ObjectAdapter[] pendingArguments) {
+        return updateChoices(pendingArguments);
+    }
 
     public ValueChoicesSelect2Panel(final String id, final ScalarModel scalarModel) {
         super(id, scalarModel);

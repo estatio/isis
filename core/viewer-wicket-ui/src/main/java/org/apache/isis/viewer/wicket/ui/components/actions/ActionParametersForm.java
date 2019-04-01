@@ -41,7 +41,6 @@ import org.apache.isis.viewer.wicket.model.mementos.ActionParameterMemento;
 import org.apache.isis.viewer.wicket.model.models.ActionArgumentModel;
 import org.apache.isis.viewer.wicket.model.models.ActionModel;
 import org.apache.isis.viewer.wicket.ui.ComponentType;
-import org.apache.isis.viewer.wicket.ui.components.scalars.PanelWithChoices;
 import org.apache.isis.viewer.wicket.ui.components.scalars.ScalarPanelAbstract2;
 import org.apache.isis.viewer.wicket.ui.pages.entity.EntityPage;
 import org.apache.isis.viewer.wicket.ui.panels.FormExecutorStrategy;
@@ -155,16 +154,20 @@ class ActionParametersForm extends PromptFormAbstract<ActionModel> {
             final int numParams = action.getParameterCount();
             for (int i = 0; i < numParams; i++) {
                 final ScalarPanelAbstract2 paramPanel = paramPanels.get(i);
-                if (paramPanel != null && paramPanel instanceof PanelWithChoices) {
-                    final PanelWithChoices panelWithChoices = (PanelWithChoices) paramPanel;
-
-                    // this could throw a ConcurrencyException as we may have to reload the
-                    // object adapter of the action in order to compute the choices
-                    // (and that object adapter might have changed)
-                    if (panelWithChoices.updateChoices(pendingArguments)) {
-                        paramPanel.repaint(target);
-                    }
+                if(paramPanel.updateIfNecessary(pendingArguments)) {
+                    paramPanel.repaint(target);
                 }
+
+//                if (paramPanel instanceof PanelWithChoices) {
+//                    final PanelWithChoices panelWithChoices = (PanelWithChoices) paramPanel;
+//
+//                    // this could throw a ConcurrencyException as we may have to reload the
+//                    // object adapter of the action in order to compute the choices
+//                    // (and that object adapter might have changed)
+//                    if (panelWithChoices.updateChoices(pendingArguments)) {
+//                        paramPanel.repaint(target);
+//                    }
+//                }
             }
         } catch (ConcurrencyException ex) {
 
